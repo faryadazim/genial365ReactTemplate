@@ -47,15 +47,29 @@ const AddPages = () => {
   const currentPosts = UserRegistered.slice(indexOfFirstPost, indexOfLastPost);
 
   const fetchAllData = () => {
-    fetch(url + "/api/Pages")
+    fetch(url + "api/Pages" ,  {
+      method: "GET",
+      headers: {
+        Authorization:
+        `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
       .then((response) => response.json())
       .then((json) => { 
         setUserRegistered(json);
-        fetch(url + "/api/Modules")
+        fetch(url + "/api/Modules",{
+          method: "GET",
+          headers: {
+            Authorization:
+            `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        })
           .then((response) => response.json())
           .then((ModuleList) => {
 
-
+ 
             setModule(ModuleList);
 
             // setPageRegisteredAdd({
@@ -75,7 +89,10 @@ console.log(pageRegisteredAdd , "added to be data");
 
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization:
+            `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/json" },
       body: JSON.stringify(pageRegisteredAdd),
     };
     console.log(requestOptions.body);
@@ -101,17 +118,14 @@ console.log(pageRegisteredAdd , "added to be data");
         module_id: "",
       });
   };
-  const deletePage = (e) => {
-    console.log(e);
-    fetch(`${url}/api/Pages/${e}`, {
+  const deletePage = (e) => { 
+    fetch(`${url}/api/Pages/${e}`,{
       method: "DELETE",
-      // headers: {
-      //   Authorization:
-      //     JSON.parse(localStorage.getItem("authUser")).token_type +
-      //     " " +
-      //     JSON.parse(localStorage.getItem("authUser")).access_token,
-      //   "Content-Type": "application/x-www-form-urlencoded",
-      // },
+      headers: {
+        Authorization:
+        `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
     })
       .then((response) => {
         // deleteing Role for this Id

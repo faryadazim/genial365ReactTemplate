@@ -56,13 +56,27 @@ const [showPassword, setshowPassword] = useState("password")
   const notifyAdd = () => toast("User Created Successfully!");
 
   const fetchAllData = () => {
-    fetch(url + "/api/Users")
+    fetch(url + "/api/Users" , {
+      method: "GET",
+      headers: {
+        Authorization:
+        `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
         setUserRegistered(json);
 
-        fetch(url + "/api/Roles")
+        fetch(url + "/api/Roles", {
+          method: "GET",
+          headers: {
+            Authorization:
+            `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        })
           .then((response) => response.json())
           .then((role) => {
             setRoles(role);
@@ -77,7 +91,10 @@ const [showPassword, setshowPassword] = useState("password")
     console.log("user", selectedRole, userRegisteredAdd);
     const requestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization:
+            `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/json" },
       body: JSON.stringify(userRegisteredAdd),
     };
 

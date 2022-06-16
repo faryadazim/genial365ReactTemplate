@@ -85,7 +85,9 @@ const fetchAllData = ()=>{
   fetch(url +`api/PagePermissions?roleId=${RoleToBeSearch}`, {
     method: "GET",
     headers: {
-      // Authorization: "bearer" + " " + e,
+      Authorization:
+        `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+ 
       "Content-Type": "application/x-www-form-urlencoded",
     },
   })

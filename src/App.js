@@ -39,15 +39,11 @@ function App() {
       },
     })
       .then((response) => {
-        response.json().then((data) => {
-          console.log(data, "success");
-          setNavigationData(data);
-
+        response.json().then((data) => { 
+          setNavigationData(data); 
           localStorage.setItem("userName", data.userName);
           localStorage.setItem("roleName", data.RoleName);
-          localStorage.setItem("loginId", data.LoginName);
-          // setemployeeSalaryResult(data);
-
+          localStorage.setItem("loginId", data.LoginName); 
           setisLogin(true);
           setShowMainLoader(false);
         });
@@ -65,8 +61,7 @@ function App() {
   }, []);
 
   return (
-    <>
-      {/* <ToastContainer /> */}
+    <> 
       <ToastContainer
         position="top-center"
         autoClose={2500}

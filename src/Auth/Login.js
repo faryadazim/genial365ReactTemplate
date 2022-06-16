@@ -47,16 +47,14 @@ const Login = ({ setisLogin, isLogin, fetchNavigation }) => {
                     onChange={(e) => {
                       setCredientials(false)
                       setlogInAuth({ ...logInAuth, password: e.target.value })
-                    }
-                    }
+                    }  }
                   />
                 </div>
                 <div>
                   {
                     credientials ? <code>Wrong credientials</code> : ""
-                  }
-
-                </div>
+                  } 
+                  </div>
                 <div className="text-right">
                   <button
                     className="btn btn-default submit btn-official px-3 btn-sm text-light"
@@ -70,10 +68,10 @@ const Login = ({ setisLogin, isLogin, fetchNavigation }) => {
                       urlencoded.append("password", logInAuth.password);
                       urlencoded.append("grant_type", "password");
 
-                      var urlencoded = new URLSearchParams();
-                      urlencoded.append("username", logInAuth.username);
-                      urlencoded.append("password", logInAuth.password);
-                      urlencoded.append("grant_type", "password");
+                      // var urlencoded = new URLSearchParams();
+                      // urlencoded.append("username", logInAuth.username);
+                      // urlencoded.append("password", logInAuth.password);
+                      // urlencoded.append("grant_type", "password");
 
                       fetch(endPoint + "token", {
                         method: "POST",

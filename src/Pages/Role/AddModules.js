@@ -42,7 +42,14 @@ const AddModules = () => {
 
   //  Read
   const fetchAllData = () => {
-    fetch(URL + "/api/Modules")
+    fetch(URL + "/api/Modules" , {
+      method: "GET",
+      headers: {
+        Authorization:
+        `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
       .then((response) => response.json())
       .then((json) => {
         setModuleRegistered(json);
@@ -55,11 +62,8 @@ const AddModules = () => {
       method: "POST",
       headers: {
         Authorization:
-          "bearer" +
-          " " +
-          JSON.parse(localStorage.getItem("access_token")).access_token,
-          "Content-Type": "application/json",
-      }, 
+            `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/json" },
       body: JSON.stringify(moduleRegisteredAdd),
     };
 
@@ -101,21 +105,14 @@ const AddModules = () => {
   };
   // Delete
   const deleteModule = (e) => {
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(moduleRegisteredAdd),
-    };
+     
     fetch(`${URL}/api/Modules/${e}`, {
       method: "DELETE",
       body: JSON.stringify(moduleRegisteredAdd),
-      // headers: {
-      //   Authorization:
-      //     JSON.parse(localStorage.getItem("authUser")).token_type +
-      //     " " +
-      //     JSON.parse(localStorage.getItem("authUser")).access_token,
-      //   "Content-Type": "application/x-www-form-urlencoded",
-      // },
+      headers: {
+        Authorization:
+            `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/json" },
     })
       .then((response) => {
         // deleteing Role for this Id

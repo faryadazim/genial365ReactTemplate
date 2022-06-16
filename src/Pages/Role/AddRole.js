@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import {endPoint} from '../../config/Config.js'
 const AddRole = () => {
   const showNavMenu = useSelector((state) => state.NavState);
   const URL = localStorage.getItem("authUser");
@@ -29,15 +30,13 @@ const AddRole = () => {
   const AddRoleRegistered = (e) => {
     e.preventDefault(e);
 
-    fetch(URL + `/api/Roles?InputPageName=${roleRegisteredAdd}`, {
+    fetch(URL + `api/Roles?InputPageName=${roleRegisteredAdd}`, {
       method: "POST",
-      // headers: {
-      //   Authorization:
-      //     JSON.parse(localStorage.getItem("authUser")).token_type +
-      //     " " +
-      //     JSON.parse(localStorage.getItem("authUser")).access_token,
-      //   "Content-Type": "application/x-www-form-urlencoded",
-      // },
+      headers: {
+        Authorization:
+        `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
     })
       .then((response) => {
         fetchAllData();
@@ -51,7 +50,14 @@ const AddRole = () => {
   };
   //  Read
   const fetchAllData = () => {
-    fetch(URL + "/api/Roles")
+    fetch(`${endPoint}api/Roles`, {
+      method: "GET",
+      headers: {
+        Authorization:
+        `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    })
       .then((response) => response.json())
       .then((json) => {
         setRoleRegistered(json);
@@ -60,15 +66,13 @@ const AddRole = () => {
   };
   // Delete
   const deleteRoleRigistered = (idToBeDelete) => {
-    fetch(`${URL}/api/Roles/${idToBeDelete}`, {
+    fetch(`${endPoint}api/Roles/${idToBeDelete}`, {
       method: "DELETE",
-      // headers: {
-      //   Authorization:
-      //     JSON.parse(localStorage.getItem("authUser")).token_type +
-      //     " " +
-      //     JSON.parse(localStorage.getItem("authUser")).access_token,
-      //   "Content-Type": "application/x-www-form-urlencoded",
-      // },
+      headers: {
+        Authorization:
+        `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
     })
       .then((response) => {
         // deleteing Role for this Id
@@ -85,16 +89,14 @@ const AddRole = () => {
   const UpdateRoleRegistered = () => {
     fetch(
       URL +
-        `/api/Roles/${currentEditUser.id}?roleName=${currentEditUser.name}'`,
+        `api/Roles/${currentEditUser.id}?roleName=${currentEditUser.name}'`,
       {
         method: "PUT",
-        // headers: {
-        //   Authorization:
-        //     JSON.parse(localStorage.getItem("authUser")).token_type +
-        //     " " +
-        //     JSON.parse(localStorage.getItem("authUser")).access_token,
-        //   "Content-Type": "application/x-www-form-urlencoded",
-        // },
+        headers: {
+          Authorization:
+          `Bearer ${JSON.parse(localStorage.getItem("access_token")).access_token}`,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       }
     )
       .then((response) => {
